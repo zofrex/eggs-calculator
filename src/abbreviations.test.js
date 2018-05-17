@@ -1,4 +1,4 @@
-import {abbrev_to_num} from './abbreviations';
+import {abbrev_to_num,num_to_abbrev} from './abbreviations';
 
 describe('abbrev_to_num', () => {
   it('returns a pure number', () => {
@@ -71,28 +71,167 @@ describe('abbrev_to_num', () => {
     expect(abbrev_to_num('1.5D')).toEqual(1.5 * Math.pow(10, 39));
   });
 
-  it('handles whatevers (Td)', () => {
+  it('handles tredecillions (Td)', () => {
     expect(abbrev_to_num('1Td')).toEqual(Math.pow(10, 42));
     expect(abbrev_to_num('1.5Td')).toEqual(1.5 * Math.pow(10, 42));
   });
 
-  it('handles whatevers (qd)', () => {
+  it('handles quattordecillions (qd)', () => {
     expect(abbrev_to_num('1qd')).toEqual(Math.pow(10, 45));
     expect(abbrev_to_num('1.5qd')).toEqual(1.5 * Math.pow(10, 45));
   });
 
-  it('handles whatevers (Qd)', () => {
+  it('handles quindecillions (Qd)', () => {
     expect(abbrev_to_num('1Qd')).toEqual(Math.pow(10, 48));
     expect(abbrev_to_num('1.5Qd')).toEqual(1.5 * Math.pow(10, 48));
   });
 
-  it('handles whatevers (sd)', () => {
+  it('handles sexdecillions (sd)', () => {
     expect(abbrev_to_num('1sd')).toEqual(Math.pow(10, 51));
     expect(abbrev_to_num('1.5sd')).toEqual(1.5 * Math.pow(10, 51));
   });
 
-  it('handles whatevers (Sd)', () => {
+  it('handles septendecillions (Sd)', () => {
     expect(abbrev_to_num('1Sd')).toEqual(Math.pow(10, 54));
     expect(abbrev_to_num('1.5Sd')).toEqual(1.5 * Math.pow(10, 54));
   });
+});
+
+describe('num_to_abbrev', () => {
+  it('returns a small number', () => {
+    expect(num_to_abbrev(1)).toEqual("1");
+  });
+
+  it('handles thousands', () => {
+    expect(num_to_abbrev(1000)).toEqual("1k");
+    expect(num_to_abbrev(1500)).toEqual("1.5k");
+    expect(num_to_abbrev(10000)).toEqual("10k");
+    expect(num_to_abbrev(100000)).toEqual("100k");
+  });
+
+  it('handles millions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 6))).toEqual(  "1M");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 6))).toEqual("1.5M");
+    expect(num_to_abbrev(10  * Math.pow(10, 6))).toEqual( "10M");
+    expect(num_to_abbrev(100 * Math.pow(10, 6))).toEqual("100M");
+  });
+
+  it('handles billions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 9))).toEqual(  "1B");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 9))).toEqual("1.5B");
+    expect(num_to_abbrev(10  * Math.pow(10, 9))).toEqual( "10B");
+    expect(num_to_abbrev(100 * Math.pow(10, 9))).toEqual("100B");
+  });
+
+  it('handles trillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 12))).toEqual(  "1T");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 12))).toEqual("1.5T");
+    expect(num_to_abbrev(10  * Math.pow(10, 12))).toEqual( "10T");
+    expect(num_to_abbrev(100 * Math.pow(10, 12))).toEqual("100T");
+  });
+
+  it('handles quadrillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 15))).toEqual(  "1q");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 15))).toEqual("1.5q");
+    expect(num_to_abbrev(10  * Math.pow(10, 15))).toEqual( "10q");
+    expect(num_to_abbrev(100 * Math.pow(10, 15))).toEqual("100q");
+  });
+
+  it('handles quintillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 18))).toEqual(  "1Q");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 18))).toEqual("1.5Q");
+    expect(num_to_abbrev(10  * Math.pow(10, 18))).toEqual( "10Q");
+    expect(num_to_abbrev(100 * Math.pow(10, 18))).toEqual("100Q");
+  });
+
+  it('handles sextillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 21))).toEqual(  "1s");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 21))).toEqual("1.5s");
+    expect(num_to_abbrev(10  * Math.pow(10, 21))).toEqual( "10s");
+    expect(num_to_abbrev(100 * Math.pow(10, 21))).toEqual("100s");
+  });
+
+  it('handles septillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 24))).toEqual(  "1S");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 24))).toEqual("1.5S");
+    expect(num_to_abbrev(10  * Math.pow(10, 24))).toEqual( "10S");
+    expect(num_to_abbrev(100 * Math.pow(10, 24))).toEqual("100S");
+  });
+
+  it('handles octillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 27))).toEqual(  "1o");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 27))).toEqual("1.5o");
+    expect(num_to_abbrev(10  * Math.pow(10, 27))).toEqual( "10o");
+    expect(num_to_abbrev(100 * Math.pow(10, 27))).toEqual("100o");
+  });
+
+  it('handles nonillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 30))).toEqual(  "1N");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 30))).toEqual("1.5N");
+    expect(num_to_abbrev(10  * Math.pow(10, 30))).toEqual( "10N");
+    expect(num_to_abbrev(100 * Math.pow(10, 30))).toEqual("100N");
+  });
+
+  it('handles decillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 33))).toEqual(  "1d");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 33))).toEqual("1.5d");
+    expect(num_to_abbrev(10  * Math.pow(10, 33))).toEqual( "10d");
+    expect(num_to_abbrev(100 * Math.pow(10, 33))).toEqual("100d");
+  });
+
+  it('handles undecillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 36))).toEqual(  "1U");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 36))).toEqual("1.5U");
+    expect(num_to_abbrev(10  * Math.pow(10, 36))).toEqual( "10U");
+    expect(num_to_abbrev(100 * Math.pow(10, 36))).toEqual("100U");
+  });
+
+  it('handles duodecillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 39))).toEqual(  "1D");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 39))).toEqual("1.5D");
+    expect(num_to_abbrev(10  * Math.pow(10, 39))).toEqual( "10D");
+    expect(num_to_abbrev(100 * Math.pow(10, 39))).toEqual("100D");
+  });
+
+  it('handles tredecillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 42))).toEqual(  "1Td");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 42))).toEqual("1.5Td");
+    expect(num_to_abbrev(10  * Math.pow(10, 42))).toEqual( "10Td");
+    expect(num_to_abbrev(100 * Math.pow(10, 42))).toEqual("100Td");
+  });
+
+  it('handles quattordecillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 45))).toEqual(  "1qd");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 45))).toEqual("1.5qd");
+    expect(num_to_abbrev(10  * Math.pow(10, 45))).toEqual( "10qd");
+    expect(num_to_abbrev(100 * Math.pow(10, 45))).toEqual("100qd");
+  });
+
+  it('handles quindecillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 48))).toEqual(  "1Qd");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 48))).toEqual("1.5Qd");
+    expect(num_to_abbrev(10  * Math.pow(10, 48))).toEqual( "10Qd");
+    expect(num_to_abbrev(100 * Math.pow(10, 48))).toEqual("100Qd");
+  });
+
+  it('handles sexdecillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 51))).toEqual(  "1sd");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 51))).toEqual("1.5sd");
+    expect(num_to_abbrev(10  * Math.pow(10, 51))).toEqual( "10sd");
+    expect(num_to_abbrev(100 * Math.pow(10, 51))).toEqual("100sd");
+  });
+
+  it('handles septendecillions', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 54))).toEqual(  "1Sd");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 54))).toEqual("1.5Sd");
+    expect(num_to_abbrev(10  * Math.pow(10, 54))).toEqual( "10Sd");
+    expect(num_to_abbrev(100 * Math.pow(10, 54))).toEqual("100Sd");
+  });
+
+  it('handles a lot', () => {
+    expect(num_to_abbrev(1   * Math.pow(10, 57))).toEqual(  "1X");
+    expect(num_to_abbrev(1.5 * Math.pow(10, 57))).toEqual("1.5X");
+    expect(num_to_abbrev(10  * Math.pow(10, 57))).toEqual( "10X");
+    expect(num_to_abbrev(100 * Math.pow(10, 57))).toEqual("100X");
+  })
 });

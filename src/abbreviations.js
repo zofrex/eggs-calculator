@@ -1,3 +1,5 @@
+import round from './round'
+
 const abbreviations = {
   "k": 3,
   "M": 6,
@@ -17,6 +19,7 @@ const abbreviations = {
   "Qd": 48,
   "sd": 51,
   "Sd": 54,
+  "X": 57,
 };
 
 export function abbrev_to_num(abbreviation) {
@@ -29,4 +32,26 @@ export function abbrev_to_num(abbreviation) {
   else if (/^[0-9\.]*[TqQsS]d/.test(abbreviation)) {
     return Number(abbreviation.slice(0, -2)) * Math.pow(10, abbreviations[abbreviation.slice(-2)]);
   }
+}
+
+export function num_to_abbrev(num) {
+  const oOM = Math.log10(num);
+
+  const max_smaller_than = (maxSoFar, currentItem) => {
+    const current = {
+      symbol: currentItem[0],
+      power: currentItem[1]
+    };
+
+    if(current.power <= oOM && current.power > maxSoFar.power) {
+      return current;
+    }
+    else {
+      return maxSoFar;
+    }
+  };
+
+  const magnitude = Object.entries(abbreviations).reduce(max_smaller_than, {symbol: "", power:0});
+
+  return round(num / Math.pow(10, magnitude.power), 3) + magnitude.symbol;
 }
