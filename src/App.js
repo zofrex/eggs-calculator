@@ -64,9 +64,10 @@ class NameForm extends Component {
     render() {
         const actualRate = this.state.rate * 4 * (1 + this.state.calm / 100);
         const current = abbrev_to_num(this.state.currentChickens);
-        const to10mil = 10000000 - current;
+        const to10mil  = 10000000 - current;
+        const to50mil  = 50000000 - current;
         const to250mil = 250000000 - current;
-        const to1bil = 1000000000 - current;
+        const to1bil   = 1000000000 - current;
 
         return (
             <form onSubmit={this.handleSubmit}>
@@ -87,6 +88,7 @@ class NameForm extends Component {
                 </label></div>
                 <div>
                     10 million: {this.getTime(to10mil, actualRate)}<br/>
+                    50 million: {this.getTime(to50mil, actualRate)}<br/>
                     250 million: {this.getTime(to250mil, actualRate)}<br/>
                     1 billion: {this.getTime(to1bil, actualRate)}<br/>
                 </div>
