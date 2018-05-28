@@ -24,6 +24,7 @@ class NameForm extends Component {
         currentChickens: 0,
         rate: 0,
         calm: 0,
+        warpHours: 0,
     };
 
     handleChange = (event) => {
@@ -45,7 +46,7 @@ class NameForm extends Component {
     }
 
     getTime = (target, rate) => {
-        if(target <= 0) {
+        if (target <= 0) {
             return "✅";
         }
         else if (rate <= 0) {
@@ -61,8 +62,26 @@ class NameForm extends Component {
         }
     }
 
+    getWarps = (target, rate, hours) => {
+        if (target <= 0) {
+            return "✅";
+        }
+        else if (rate <= 0) {
+            return "❌";
+        }
+        else if (hours <= 0) {
+            return "..."
+        }
+        else {
+            let chickensPerWarp = rate * 4 * 60 * hours
+            let result = Math.ceil(target/chickensPerWarp)
+            let plural = result <= 1 ? " warp" : " warps"
+            return result + plural
+        }
+    }
+
     render() {
-        const actualRate = this.state.rate * 4 * (1 + this.state.calm / 100);
+        const awayRate = this.state.rate * 4 * (1 + this.state.calm / 100);
         const current = abbrev_to_num(this.state.currentChickens);
         const to10mil  = 10000000 - current;
         const to50mil  = 50000000 - current;
@@ -82,15 +101,32 @@ class NameForm extends Component {
                     chickens/hab/minute
                 </label></div>
                 <div><label>
-                    Internal Hatchery Calm
+                    Internal Hatchery Calm:
                     <input name="calm" type="text" value={this.state.calm} onChange={this.handleChange}/>
                     %
                 </label></div>
                 <div>
-                    10 million: {this.getTime(to10mil, actualRate)}<br/>
-                    50 million: {this.getTime(to50mil, actualRate)}<br/>
-                    250 million: {this.getTime(to250mil, actualRate)}<br/>
-                    1 billion: {this.getTime(to1bil, actualRate)}<br/>
+                    10 million: {this.getTime(to10mil, awayRate)}<br/>
+                    50 million: {this.getTime(to50mil, awayRate)}<br/>
+                    250 million: {this.getTime(to250mil, awayRate)}<br/>
+                    1 billion: {this.getTime(to1bil, awayRate)}<br/>
+                </div>
+                <div>
+                    <br/>
+                    OR <br/>
+                    <br/>
+                </div>
+
+                <div><label>
+                    Long warp time:
+                    <input name="warpHours" type="text" value={this.state.warpHours} onChange={this.handleChange}/>
+                    hours
+                </label></div>
+                <div>
+                    10 million: {this.getWarps(to10mil, this.state.rate, this.state.warpHours)}<br/>
+                    50 million: {this.getWarps(to50mil, this.state.rate, this.state.warpHours)}<br/>
+                    250 million: {this.getWarps(to250mil, this.state.rate, this.state.warpHours)}<br/>
+                    1 billion: {this.getWarps(to1bil, this.state.rate, this.state.warpHours)}<br/>
                 </div>
             </form>
         );
