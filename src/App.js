@@ -106,15 +106,18 @@ class NameForm extends Component {
                     %
                 </label></div>
                 <div>
-                    10 million: {this.getTime(to10mil, awayRate)} <br/>
-                    50 million: {this.getTime(to50mil, awayRate)} <br/>
-                    250 million: {this.getTime(to250mil, awayRate)} <br/>
-                    1 billion: {this.getTime(to1bil, awayRate)} <br/>
+                    10 million: {this.getTime(to10mil, awayRate)}<br/>
+                    50 million: {this.getTime(to50mil, awayRate)}<br/>
+                    250 million: {this.getTime(to250mil, awayRate)}<br/>
+                    1 billion: {this.getTime(to1bil, awayRate)}<br/>
                 </div>
-                <div> <br/>OR <br/><br/>
-                    </div>
+                <div>
+                    <br/>
+                    OR <br/>
+                    <br/>
+                </div>
 
-                    <div><label>
+                <div><label>
                     Long warp time:
                     <input name="currentWarpHours" type="text" value={this.state.currentWarpHours} onChange={this.handleChange}/>
                     hours
