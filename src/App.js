@@ -24,7 +24,7 @@ class NameForm extends Component {
         currentChickens: 0,
         rate: 0,
         calm: 0,
-        currentWarpHours: 0,
+        warpHours: 0,
     };
 
     handleChange = (event) => {
@@ -119,14 +119,14 @@ class NameForm extends Component {
 
                 <div><label>
                     Long warp time:
-                    <input name="currentWarpHours" type="text" value={this.state.currentWarpHours} onChange={this.handleChange}/>
+                    <input name="warpHours" type="text" value={this.state.warpHours} onChange={this.handleChange}/>
                     hours
                 </label></div>
                 <div>
-                    10 million: {this.getWarps(to10mil, this.state.rate, this.state.currentWarpHours)}<br/>
-                    50 million: {this.getWarps(to50mil, this.state.rate, this.state.currentWarpHours)}<br/>
-                    250 million: {this.getWarps(to250mil, this.state.rate, this.state.currentWarpHours)}<br/>
-                    1 billion: {this.getWarps(to1bil, this.state.rate, this.state.currentWarpHours)}<br/>
+                    10 million: {this.getWarps(to10mil, this.state.rate, this.state.warpHours)}<br/>
+                    50 million: {this.getWarps(to50mil, this.state.rate, this.state.warpHours)}<br/>
+                    250 million: {this.getWarps(to250mil, this.state.rate, this.state.warpHours)}<br/>
+                    1 billion: {this.getWarps(to1bil, this.state.rate, this.state.warpHours)}<br/>
                 </div>
             </form>
         );
