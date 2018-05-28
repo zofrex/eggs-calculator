@@ -24,6 +24,7 @@ class NameForm extends Component {
         currentChickens: 0,
         rate: 0,
         calm: 0,
+        currentWarpHours: 0,
     };
 
     handleChange = (event) => {
@@ -82,15 +83,30 @@ class NameForm extends Component {
                     chickens/hab/minute
                 </label></div>
                 <div><label>
-                    Internal Hatchery Calm
+                    Internal Hatchery Calm:
                     <input name="calm" type="text" value={this.state.calm} onChange={this.handleChange}/>
                     %
                 </label></div>
                 <div>
-                    10 million: {this.getTime(to10mil, actualRate)}<br/>
-                    50 million: {this.getTime(to50mil, actualRate)}<br/>
-                    250 million: {this.getTime(to250mil, actualRate)}<br/>
-                    1 billion: {this.getTime(to1bil, actualRate)}<br/>
+                    10 million: {this.getTime(to10mil, actualRate)} <br/>
+                    50 million: {this.getTime(to50mil, actualRate)} <br/>
+                    250 million: {this.getTime(to250mil, actualRate)} <br/>
+                    1 billion: {this.getTime(to1bil, actualRate)} <br/>
+                </div>
+                <div> OR <br/>
+                    </div>
+
+                    <div><label>
+                    Long warp time:
+                    <input name="currentWarpHours" type="text" value={this.state.currentWarpHours} onChange={this.handleChange}/>
+                    hours
+                </label></div>
+                <div>
+                    10 million: (value) warps (value * 100) golden eggs<br/>
+                    50 million: (value) warps<br/>
+                    250 million: (value) warps<br/>
+                    1 billion: (value) warps<br/>
+                    long warp hours: {this.state.currentWarpHours}
                 </div>
             </form>
         );
