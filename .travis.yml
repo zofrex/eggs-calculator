@@ -7,3 +7,7 @@ branches:
   except:
   - staging.tmp
   - trying.tmp
+
+script:
+  - npm test
+  - $(npm bin)/cypress run
