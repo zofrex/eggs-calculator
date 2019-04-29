@@ -1,3 +1,9 @@
 language: node_js
 node_js:
   - "node"
+
+# exclusions for Bors
+branches:
+  except:
+  - staging.tmp
+  - trying.tmp
