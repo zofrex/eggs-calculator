@@ -87,6 +87,7 @@ class NameForm extends Component {
         const to50mil  = 50000000 - current;
         const to250mil = 250000000 - current;
         const to1bil   = 1000000000 - current;
+        const to10bil  = 10000000000 - current;
 
         return (
             <form onSubmit={this.handleSubmit}>
@@ -110,6 +111,7 @@ class NameForm extends Component {
                     50 million: {this.getTime(to50mil, awayRate)}<br/>
                     250 million: {this.getTime(to250mil, awayRate)}<br/>
                     1 billion: {this.getTime(to1bil, awayRate)}<br/>
+                    10 billion: {this.getTime(to10bil, awayRate)}<br/>
                 </div>
                 <div>
                     <br/>
@@ -127,6 +129,7 @@ class NameForm extends Component {
                     50 million: {this.getWarps(to50mil, this.state.rate, this.state.warpHours)}<br/>
                     250 million: {this.getWarps(to250mil, this.state.rate, this.state.warpHours)}<br/>
                     1 billion: {this.getWarps(to1bil, this.state.rate, this.state.warpHours)}<br/>
+                    10 billion: {this.getWarps(to10bil, this.state.rate, this.state.warpHours)}<br/>
                 </div>
             </form>
         );
