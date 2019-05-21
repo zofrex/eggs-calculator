@@ -8,7 +8,7 @@ class App extends Component {
     };
 
     render() {
-        const current = this.state.switch ? <ChickenBoxCalculator/> : <NameForm/>;
+        const current = this.state.switch ? <ChickenBoxCalculator/> : <TrophyCalculator/>;
 
         return (
             <React.Fragment>
@@ -25,7 +25,7 @@ class App extends Component {
     }
 }
 
-class NameForm extends Component {
+export class TrophyCalculator extends Component {
     state = {
         currentChickens: 0,
         rate: 0,
@@ -149,4 +149,3 @@ export class ChickenBoxCalculator extends Component {
 }
 
 export default App;
-export const TrophyCalculator = NameForm;
