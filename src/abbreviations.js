@@ -23,13 +23,13 @@ const abbreviations = {
 };
 
 export function abbrev_to_num(abbreviation) {
-  if (/^[0-9\.]*$/.test(abbreviation)) {
+  if (/^[0-9.]*$/.test(abbreviation)) {
     return Number(abbreviation);
   }
-  else if (/^[0-9\.]*[kMBTqQsSoNdUD]$/.test(abbreviation)) {
+  else if (/^[0-9.]*[kMBTqQsSoNdUD]$/.test(abbreviation)) {
     return Number(abbreviation.slice(0, -1)) * Math.pow(10, abbreviations[abbreviation.slice(-1)]);
   }
-  else if (/^[0-9\.]*[TqQsS]d/.test(abbreviation)) {
+  else if (/^[0-9.]*[TqQsS]d/.test(abbreviation)) {
     return Number(abbreviation.slice(0, -2)) * Math.pow(10, abbreviations[abbreviation.slice(-2)]);
   }
 }
