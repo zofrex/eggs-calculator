@@ -4,13 +4,25 @@ import './App.css';
 import {abbrev_to_num} from './abbreviations';
 
 class App extends Component {
+    state = {
+        switch: false
+    };
+
     render() {
+        const current = this.state.switch ? <ChickenBoxCalculator/> : <NameForm/>;
+
         return (
             <React.Fragment>
-                <p id="nav_chickenBoxes">Chicken Boxes</p>
-                <NameForm/>
+                <p id="nav_chickenBoxes" onClick={this.switch}>Chicken Boxes</p>
+                { current }
             </React.Fragment>
         );
+    }
+
+    switch = () => {
+        this.setState({
+            switch: true
+        });
     }
 }
 
@@ -132,7 +144,9 @@ class NameForm extends Component {
 }
 
 export class ChickenBoxCalculator extends Component {
-
+    render() {
+        return "Chickens per hour";
+    }
 }
 
 export default App;
