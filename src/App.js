@@ -4,23 +4,27 @@ import {abbrev_to_num} from './abbreviations';
 
 class App extends Component {
     state = {
-        switch: false
+        current: 'trophies'
     };
 
     render() {
-        const current = this.state.switch ? <ChickenBoxCalculator/> : <TrophyCalculator/>;
+        const current = this.state.current == 'trophies' ? <TrophyCalculator/> : <ChickenBoxCalculator/>;
 
         return (
             <React.Fragment>
-                <p id="nav_chickenBoxes" onClick={this.switch}>Chicken Boxes</p>
+                <p>
+                    <button id="nav_trophies" name="trophies" onClick={this.switch} disabled={this.state.current == "trophies" ? true : false}>Trophies</button>
+                    <button id="nav_chickenBoxes" name="chickenBoxes" onClick={this.switch} disabled={this.state.current == "chickenBoxes" ? true : false}>Chicken Boxes</button>
+                </p>
+
                 { current }
             </React.Fragment>
         );
     }
 
-    switch = () => {
+    switch = (event) => {
         this.setState({
-            switch: true
+            current: event.target.name
         });
     }
 }
