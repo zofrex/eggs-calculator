@@ -148,7 +148,25 @@ export class TrophyCalculator extends Component {
 
 export class ChickenBoxCalculator extends Component {
     render() {
-        return "Chickens per hour";
+        return (
+            <div>
+                <p>
+                  <label>Internal hatchery rate: <input name="rate" type="text" value="0"/></label> min/hab<br/>
+                  <label>Internal hatchery calm: +<input name="calm" type="text" value="0"/>%</label><br/>
+                  <label>Population: <input name="population" type="text" value="0"/></label><br/>
+                </p>
+                <p>
+                  Chickens per hour (app closed): 0<br/>
+                  Chickens per hour (app open): 0<br/>
+                  Difference: 0
+                </p>
+                <p>Difference is equivalent to:</p>
+                <p>
+                  <b>0</b> 12% chicken boxes<br/>
+                  <b>0</b> 3% chicken boxes<br/>
+                </p>
+            </div>
+          );
     }
 }
 
