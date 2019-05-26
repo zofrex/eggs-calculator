@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # About
 
-This is a calculator to help people with the game Egg, Inc. If you haven't played that game, nothing here will make sense to you.
+[This is a calculator](https://eggs.zofrex.com/) to help people with the game Egg, Inc. If you haven't played that game, nothing here will make sense to you.
 
 # Setting up project
 
