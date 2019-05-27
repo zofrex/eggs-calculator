@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import {abbrev_to_num} from './abbreviations';
+import {abbrev_to_num, num_to_abbrev} from './abbreviations';
+import {chickens_per_hour, chickens_per_hour_away} from './eggs';
 
 class App extends Component {
     state = {
@@ -147,18 +148,28 @@ export class TrophyCalculator extends Component {
 }
 
 export class ChickenBoxCalculator extends Component {
+    state = {
+        rate: 0,
+        calm: 0,
+        population: 0
+    };
+
     render() {
+        const chickens_per_hour_open = chickens_per_hour(this.state.rate);
+        const chickens_per_hour_closed = chickens_per_hour_away(this.state.rate, this.state.calm);
+        const difference = chickens_per_hour_closed - chickens_per_hour_open;
+
         return (
             <div>
                 <p>
-                  <label>Internal hatchery rate: <input name="rate" type="text" value="0"/></label> min/hab<br/>
-                  <label>Internal hatchery calm: +<input name="calm" type="text" value="0"/>%</label><br/>
-                  <label>Population: <input name="population" type="text" value="0"/></label><br/>
+                  <label>Internal hatchery rate: <input name="rate" type="text" value={this.state.rate} onChange={this.handleChange}/></label> min/hab<br/>
+                  <label>Internal hatchery calm: +<input name="calm" type="text" value={this.state.calm} onChange={this.handleChange}/>%</label><br/>
+                  <label>Population: <input name="population" type="text" value={this.state.population} onChange={this.handleChange}/></label><br/>
                 </p>
                 <p>
-                  Chickens per hour (app closed): 0<br/>
-                  Chickens per hour (app open): 0<br/>
-                  Difference: 0
+                  Chickens per hour (app closed): {num_to_abbrev(chickens_per_hour_closed)}<br/>
+                  Chickens per hour (app open): {num_to_abbrev(chickens_per_hour_open)}<br/>
+                  Difference: {num_to_abbrev(difference)}
                 </p>
                 <p>Difference is equivalent to:</p>
                 <p>
@@ -168,6 +179,13 @@ export class ChickenBoxCalculator extends Component {
             </div>
           );
     }
+
+    handleChange = (event) => {
+        const target = event.target;
+        this.setState({
+            [target.name]: target.value
+        });
+    };
 }
 
 export default App;
