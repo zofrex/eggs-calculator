@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {abbrev_to_num, num_to_abbrev} from './abbreviations';
-import {chickens_per_hour, chickens_per_hour_away} from './eggs';
+import {chickens_per_hour, chickens_per_hour_away, chicken_boxes_for} from './eggs';
 
 class App extends Component {
     state = {
@@ -159,6 +159,11 @@ export class ChickenBoxCalculator extends Component {
         const chickens_per_hour_closed = chickens_per_hour_away(this.state.rate, this.state.calm);
         const difference = chickens_per_hour_closed - chickens_per_hour_open;
 
+        const starting_population = abbrev_to_num(this.state.population);
+
+        const boxes_12 = chicken_boxes_for(difference, starting_population, 12);
+        const boxes_3 = chicken_boxes_for(difference, starting_population, 3);
+
         return (
             <div>
                 <p>
@@ -173,8 +178,8 @@ export class ChickenBoxCalculator extends Component {
                 </p>
                 <p>Difference is equivalent to:</p>
                 <p>
-                  <b>0</b> 12% chicken boxes<br/>
-                  <b>0</b> 3% chicken boxes<br/>
+                  <b>{boxes_12}</b> 12% chicken boxes<br/>
+                  <b>{boxes_3}</b> 3% chicken boxes<br/>
                 </p>
             </div>
           );
