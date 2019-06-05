@@ -37,7 +37,20 @@ describe('The Chicken Box Calculator', () => {
     // 480k app open
     // 240k difference
 
-    cy.contains('1 12% chicken boxes');
+    cy.contains('1 12% chicken box').should('not.contain', '1 12% chicken boxes');
     cy.contains('2 3% chicken boxes');
+  });
+
+  it('Gives a ranged chicken box answer', () => {
+    cy.contains('Internal hatchery rate').find('input').type('{backspace}4000').should('have.value', '4000');
+    cy.contains('Internal hatchery calm').find('input').type('{backspace}100').should('have.value', '100');
+    cy.contains('Population').find('input').type('{backspace}2M').should('have.value', '2M');
+
+    // 1.92M app closed
+    // 960k app open
+    // 960k difference
+
+    cy.contains('3–4 12% chicken boxes');
+    cy.contains('10–14 3% chicken boxes');
   });
 });

@@ -160,9 +160,12 @@ export class ChickenBoxCalculator extends Component {
         const difference = chickens_per_hour_closed - chickens_per_hour_open;
 
         const starting_population = abbrev_to_num(this.state.population);
+        const ending_population = starting_population + chickens_per_hour_open;
 
-        const boxes_12 = chicken_boxes_for(difference, starting_population, 12);
-        const boxes_3 = chicken_boxes_for(difference, starting_population, 3);
+        const boxes_12_max = chicken_boxes_for(difference, starting_population, 12);
+        const boxes_12_min = chicken_boxes_for(difference, ending_population, 12);
+        const boxes_3_max = chicken_boxes_for(difference, starting_population, 3);
+        const boxes_3_min = chicken_boxes_for(difference, ending_population, 3);
 
         return (
             <div>
@@ -178,8 +181,8 @@ export class ChickenBoxCalculator extends Component {
                 </p>
                 <p>Difference is equivalent to:</p>
                 <p>
-                  <b>{boxes_12}</b> 12% chicken boxes<br/>
-                  <b>{boxes_3}</b> 3% chicken boxes<br/>
+                  <BoxRange size="12" minimum={boxes_12_min} maximum={boxes_12_max}/><br/>
+                  <BoxRange size="3" minimum={boxes_3_min} maximum={boxes_3_max}/>
                 </p>
             </div>
           );
@@ -192,5 +195,15 @@ export class ChickenBoxCalculator extends Component {
         });
     };
 }
+
+export function BoxRange(props) {
+    if(props.minimum == props.maximum) {
+        const box = props.maximum == 1 ? 'box' : 'boxes';
+        return <React.Fragment><b>{props.minimum}</b> {props.size}% chicken {box}</React.Fragment>;
+    }
+    else {
+        return <React.Fragment><b>{props.minimum}–{props.maximum}</b> {props.size}% chicken boxes</React.Fragment>;
+    }
+};
 
 export default App;
