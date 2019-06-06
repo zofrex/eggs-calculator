@@ -1,9 +1,13 @@
 import {abbrev_to_num,num_to_abbrev} from './abbreviations';
 
 describe('abbrev_to_num', () => {
-  it('returns a pure number', () => {
+  it('returns an integer number', () => {
     expect(abbrev_to_num('1')).toEqual(1);
     expect(abbrev_to_num('2')).toEqual(2);
+  });
+
+  it('returns a fractional number', () => {
+    expect(abbrev_to_num('1.5')).toEqual(1.5);
   });
 
   it('handles thousands (k)', () => {

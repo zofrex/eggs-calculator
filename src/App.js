@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {abbrev_to_num} from './abbreviations';
+import {abbrev_to_num, num_to_abbrev} from './abbreviations';
+import {chickens_per_hour, chickens_per_hour_away, chicken_boxes_for} from './eggs';
 
 class App extends Component {
+    state = {
+        current: 'trophies'
+    };
+
     render() {
+        const current = this.state.current == 'trophies' ? <TrophyCalculator/> : <ChickenBoxCalculator/>;
+
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
+            <React.Fragment>
+                <p>
+                    <button id="nav_trophies" name="trophies" onClick={this.switch} disabled={this.state.current == "trophies" ? true : false}>Trophies</button>
+                    <button id="nav_chickenBoxes" name="chickenBoxes" onClick={this.switch} disabled={this.state.current == "chickenBoxes" ? true : false}>Chicken Boxes</button>
                 </p>
-            </div>
+
+                { current }
+            </React.Fragment>
         );
+    }
+
+    switch = (event) => {
+        this.setState({
+            current: event.target.name
+        });
     }
 }
 
-class NameForm extends Component {
+export class TrophyCalculator extends Component {
     state = {
         currentChickens: 0,
         rate: 0,
@@ -136,4 +147,63 @@ class NameForm extends Component {
     }
 }
 
-export default NameForm;
+export class ChickenBoxCalculator extends Component {
+    state = {
+        rate: 0,
+        calm: 0,
+        population: 0
+    };
+
+    render() {
+        const chickens_per_hour_open = chickens_per_hour(this.state.rate);
+        const chickens_per_hour_closed = chickens_per_hour_away(this.state.rate, this.state.calm);
+        const difference = chickens_per_hour_closed - chickens_per_hour_open;
+
+        const starting_population = abbrev_to_num(this.state.population);
+        const ending_population = starting_population + chickens_per_hour_open;
+
+        const boxes_12_max = chicken_boxes_for(difference, starting_population, 12);
+        const boxes_12_min = chicken_boxes_for(difference, ending_population, 12);
+        const boxes_3_max = chicken_boxes_for(difference, starting_population, 3);
+        const boxes_3_min = chicken_boxes_for(difference, ending_population, 3);
+
+        return (
+            <div>
+                <p>
+                  <label>Internal hatchery rate: <input name="rate" type="text" value={this.state.rate} onChange={this.handleChange}/></label> min/hab<br/>
+                  <label>Internal hatchery calm: +<input name="calm" type="text" value={this.state.calm} onChange={this.handleChange}/>%</label><br/>
+                  <label>Population: <input name="population" type="text" value={this.state.population} onChange={this.handleChange}/></label><br/>
+                </p>
+                <p>
+                  Chickens per hour (app closed): {num_to_abbrev(chickens_per_hour_closed)}<br/>
+                  Chickens per hour (app open): {num_to_abbrev(chickens_per_hour_open)}<br/>
+                  Difference: {num_to_abbrev(difference)}
+                </p>
+                <p>Difference is equivalent to:</p>
+                <p>
+                  <BoxRange size="12" minimum={boxes_12_min} maximum={boxes_12_max}/><br/>
+                  <BoxRange size="3" minimum={boxes_3_min} maximum={boxes_3_max}/>
+                </p>
+            </div>
+          );
+    }
+
+    handleChange = (event) => {
+        const target = event.target;
+        this.setState({
+            [target.name]: target.value
+        });
+    };
+}
+
+export function BoxRange(props) {
+    if(props.minimum == props.maximum) {
+        const box = props.maximum == 1 ? 'box' : 'boxes';
+        return <React.Fragment><b>{props.minimum}</b> {props.size}% chicken {box}</React.Fragment>;
+    }
+    else {
+        return <React.Fragment><b>{props.minimum}–{props.maximum}</b> {props.size}% chicken boxes</React.Fragment>;
+    }
+};
+
+export default App;
