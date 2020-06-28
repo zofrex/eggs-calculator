@@ -2,6 +2,12 @@ language: node_js
 node_js:
   - "node"
 
+addons:
+  apt:
+    packages:
+      # Ubuntu 16+ does not include this Cypress dependency
+      - libgconf-2-4
+
 # exclusions for Bors
 branches:
   except:
